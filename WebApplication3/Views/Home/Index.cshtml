@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model WebApplication3.Models.SearchModel
+
+<div class="jumbotron">
+    <h1>Spotify</h1>
+    <p class="lead">Rechercher un artiste sur spotify :</p>
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        @Html.TextBoxFor(model => model.Search, new { data_bind = "placeholder: Recherche", @class ="form-control width-7" })
+        <br />
+        <button type="submit" class="btn btn-success">Rechercher</button>
+    }
+
+</div>

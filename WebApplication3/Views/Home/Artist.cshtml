@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Liste des artistes";
+}
+
+
+<h1 class="display-4">Liste des albums</h1>
+<ul class="list-group">
+    @foreach (var album in ViewData["albumList"] as List<WebApplication3.Models.AlbumModel>)
+    {
+    <li class="list-group-item">
+        @{
+            string url = "http://via.placeholder.com/200?text=No+Image";
+            if (album.Album.Images.Count() > 0)
+            {
+                SpotifyAPI.Web.Models.Image image = album.Album.Images.First();
+                url = image.Url;
+            }
+        }
+
+        <img src="@url" class="img-thumbnail float-right" style="width: 200px; height: auto">
+        <h1>@album.Name</h1>
+    </li>
+    }
+</ul>

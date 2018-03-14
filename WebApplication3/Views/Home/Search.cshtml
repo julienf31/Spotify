@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Liste des artistes";
+}
+
+@model WebApplication3.Models.ArtistModel
+
+<h1 class="display-4">Liste des Artistes</h1>
+<ul class="list-group">
+    @foreach (var artists in ViewData["artistsList"] as List<WebApplication3.Models.ArtistModel>)
+    {
+    <li class="list-group-item">
+        <div class="row">
+            @{
+                int followers = artists.Artist.Followers.Total;
+                string url = "http://via.placeholder.com/200?text=No+Image";
+                if (artists.Artist.Images.Count() > 0)
+                {
+                    SpotifyAPI.Web.Models.Image image = artists.Artist.Images.First();
+                    url = image.Url;
+                }
+            }
+            <div class="col">
+                <img src="@url" class="img-thumbnail float-left" style="width: 100px; height: auto">
+                <h4>@artists.Name</h4>
+                Followers : <span class="badge badge-info">@followers</span>
+            </div>
+            
+            <div class="col-4 align-self-end">
+                @Html.ActionLink("Liste des albums", "Artist", "Home", new { Id = artists.Id }, new { @class="btn btn-info" })
+                <br /><br />
+                Popularité
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @artists.Artist.Popularity%" aria-valuenow="@artists.Artist.Popularity" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div> 
+    </li>
+    }
+</ul>
